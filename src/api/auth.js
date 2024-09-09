@@ -2,11 +2,13 @@ import axios from "axios";
 
 const API_URL = "https://moneyfulpublicpolicy.co.kr";
 
+// 회원가입 요창
 export const register = async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
   return response.data;
 };
 
+// 로그인 요청
 export const login = async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
   return response.data;

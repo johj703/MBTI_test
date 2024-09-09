@@ -7,6 +7,15 @@ const AuthForm = ({ mode, onSubmit }) => {
     nickname: mode === "signup" ? "" : undefined, // 회원가입일 경우에만 초기화
   });
 
+  // 입력값 변경 핸들러
+  const handleChange = (e) => {
+    cosnt {name, value} = e.target;
+    setFormData((prevData) => {
+      ...prevData,
+      [name]: value;
+    });
+  };
+
   return (
     <form>
       <input

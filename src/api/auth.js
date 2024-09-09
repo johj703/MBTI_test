@@ -14,6 +14,14 @@ export const login = async (userData) => {
   return response.data;
 };
 
-export const getUserProfile = async (token) => {};
+// 유저 프로필 가져오기
+export const getUserProfile = async (token) => {
+  const response = await axios.get(`${API_URL}/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
 
 export const updateProfile = async (formData) => {};

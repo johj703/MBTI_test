@@ -24,4 +24,14 @@ export const getUserProfile = async (token) => {
   return response.data;
 };
 
-export const updateProfile = async (formData) => {};
+// 유저 프로필 업데이트
+export const updateProfile = async (formData) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(``, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Layout = ({ children, user, setUser }) => {
   const navigate = useNavigate();
@@ -7,7 +7,7 @@ const Layout = ({ children, user, setUser }) => {
   // 사용자가 로그인하지 않은 상태에서 페이지에 접근하려고 할 때, login 페이지로 리디렉션
   useEffect(() => {
     if (!user) {
-      Navigate("/login");
+      navigate("/login");
     }
   }, [user, navigate]);
 

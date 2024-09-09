@@ -9,11 +9,17 @@ const AuthForm = ({ mode, onSubmit }) => {
 
   // 입력값 변경 핸들러
   const handleChange = (e) => {
-    cosnt {name, value} = e.target;
-    setFormData((prevData) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: value;
-    });
+      [name]: value,
+    }));
+  };
+
+  // 폼 제출 핸들러
+  const handleSubmit = (e) => {
+    e.preventDefault(); // 기본 폼 제출 이벤트 방지
+    onSubmit(formData); // 부모 컴포넌트로 formData 전달
   };
 
   return (

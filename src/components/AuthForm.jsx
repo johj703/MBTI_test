@@ -1,7 +1,11 @@
 import { useState } from "react";
 
 const AuthForm = () => {
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({
+    id: "",
+    password: "",
+    nickname: mode === "signup" ? "" : undefined, // 회원가입일 경우에만 초기화
+  });
 
   return (
     <form>

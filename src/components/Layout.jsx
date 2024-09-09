@@ -11,6 +11,16 @@ const Layout = ({ children, user, setUser }) => {
     }
   }, [user, navigate]);
 
+  // 로그아웃 기능
+  const handleLogout = () => {
+    // 로컬 스토리지에서 토큰 제거
+    localStorage.removeItem("token");
+    // 사용자 상태 초기화
+    setUser(null);
+    // 로그인 페이지로 리디렉션
+    navigate("/login");
+  };
+
   return (
     <div>
       <header>
@@ -20,7 +30,7 @@ const Layout = ({ children, user, setUser }) => {
             {user ? (
               <>
                 {/* 다른 페이지로 가는 버튼도 필요 합니다 */}
-                <button>로그아웃</button>
+                <button onClick={handleLogout}>로그아웃</button>
               </>
             ) : (
               <Link to="/login">로그인</Link>

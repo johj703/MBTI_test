@@ -1,12 +1,9 @@
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-
-  return (
-    <>
-      테스트
-    </>
-  )
+  const [user, setUser] = useState(null);
+  return <>테스트</>;
 }
 
-export default App
+export default App;

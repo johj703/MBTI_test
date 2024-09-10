@@ -14,7 +14,7 @@ function App() {
   const [user, setUser] = useState(null);
   return (
     <Router>
-      <Layout>
+      <Layout user={user} setUser={setUser}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setUser={setUser} />} />

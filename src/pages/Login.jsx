@@ -1,11 +1,22 @@
 import { Link } from "react-router-dom";
+import Signup from "./Signup";
 
 const Login = () => {
+  const handleLogin = async (formData) => {
+    try {
+    } catch (error) {
+      alert("로그인에 실패 했습니다. 다시 시도해주세요.");
+    }
+  };
   return (
     <div>
-      <h1>무료 성격 테스트</h1>
-      <p>자신의 성격 유형을 확인할 수 있도록 솔직하게 답변해 주세요.</p>
-      <Link to="">로그인하기</Link>
+      <h1>로그인</h1>
+      {/* <AuthForm mode="login" onSubmit={handleLogin} /> */}
+      <div>
+        <p>
+          계정이 없으신가요? <Link to="/Signup">회원가입</Link>
+        </p>
+      </div>
     </div>
   );
 };

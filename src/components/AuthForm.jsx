@@ -31,6 +31,9 @@ const AuthForm = ({ mode, onSubmit }) => {
         placeholder="아이디"
         required
       />
+      <input
+      
+      />
       {mode === "signup" && (
         <input
           type="text"

@@ -26,7 +26,7 @@ const Layout = ({ children, user, setUser }) => {
       <header>
         <nav>
           <Link to="/">홈</Link>
-          <div>
+          <div className="space-x-4">
             {user ? (
               <>
                 {/* 다른 페이지로 가는 버튼도 필요 합니다 */}
@@ -38,7 +38,7 @@ const Layout = ({ children, user, setUser }) => {
           </div>
         </nav>
       </header>
-      <main>{children}</main>
+      <main className="container pt-10 mx-auto main">{children}</main>
     </div>
   );
 };

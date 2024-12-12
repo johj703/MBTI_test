@@ -6,12 +6,17 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/Profile";
 import TestResultPage from "./pages/TestResultPage";
 import TestPage from "./pages/TestPage";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    // 페이지 로드 시 로컬 스토리지에서 user 정보 확인
+    const saveUser = localStorage.getItem('user');
+    return saveUser ? JSON.parse(savedUser) : null;
+  });
+  
   return (
     <Router>
       <Layout user={user} setUser={setUser}>

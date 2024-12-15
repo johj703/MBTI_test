@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
-import ProfilePage from "./pages/ProfilePage";
+import ProfilePage from "./pages/Profile";
 import TestResultPage from "./pages/TestResultPage";
 import TestPage from "./pages/TestPage";
 

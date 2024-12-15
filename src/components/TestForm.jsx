@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { questions } from '../data/questions';
+import { questions } from '../data/question.js';
 
 const TestForm = ({ onSubmit }) => {
   const [answers, setAnswers] = useState(Array(questions.length).fill(null));

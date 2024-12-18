@@ -1,8 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
 import Signup from "./Signup";
+import { useState } from "react";
 
 const Login = ({ setUser }) => {
   const navigate = useNavigate();
+  const [formData, setFormdata] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormdata(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

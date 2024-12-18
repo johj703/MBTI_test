@@ -33,9 +33,11 @@ const Login = ({ setUser }) => {
         setUser(userData);
         // 홈페이지로 리디렉션
         navigate('/');
+      } else {
+        throw new Error('이메일과 비밀번호를 입력해 주세요.');
       }
     } catch (error) {
-      alert("로그인에 실패 했습니다. 다시 시도해주세요.");
+      alert(error.message || "로그인에 실패 했습니다. 다시 시도해주세요.");
     }
   };
   return (

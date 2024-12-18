@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Signup from "./Signup";
 
-const Login = () => {
+const Login = ({ setUser }) => {
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -17,7 +19,7 @@ const Login = () => {
         // 전역 사용자 상태 업데이트
         setUser(userData);
         // 홈페이지로 리디렉션
-        Navigate('/');
+        navigate('/');
       }
     } catch (error) {
       alert("로그인에 실패 했습니다. 다시 시도해주세요.");

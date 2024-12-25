@@ -72,7 +72,7 @@ const Login = ({ setUser }) => {
       </form>
       <div className="">
         <p>
-          계정이 없으신가요? <Link to="/signup" className="">회원가입</Link>
+          계정이 없으신가요? <Link to="/Signup" className="">회원가입</Link>
         </p>
       </div>
     </div>

@@ -24,7 +24,7 @@ const Layout = ({ children, user, setUser }) => {
   return (
     <div>
       <header>
-        <nav>
+        <nav className="flex space-x-3">
           <Link to="/">홈</Link>
           <div className="space-x-4">
             {user ? (

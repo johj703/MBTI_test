@@ -14,7 +14,7 @@ function App() {
   const [user, setUser] = useState(() => {
     // 페이지 로드 시 로컬 스토리지에서 user 정보 확인
     const saveUser = localStorage.getItem('user');
-    return saveUser ? JSON.parse(savedUser) : null;
+    return saveUser ? JSON.parse(saveUser) : null;
   });
   
   return (

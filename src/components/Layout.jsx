@@ -5,7 +5,7 @@ const Layout = ({ children, user, setUser }) => {
   const navigate = useNavigate();
 
   // 로그인이 필요없는 페이지들 경로
-  const publicPages = ['/', '/login', 'signup'];
+  const publicPages = ['/', '/login', '/signup'];
 
   useEffect(() => {
     // 현재 페이지가 public 페이지가 아니고, 사용자가 로그인하지 않은 경우에만 리다이렉트트

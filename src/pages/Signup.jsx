@@ -15,7 +15,7 @@ const Signup = () => {
   return (
     <div>
       <div>
-        <p>회원가입</p>
+        <h1>회원가입</h1>
         <AuthForm mode="signup" onSubmit={handleSignup} />
         <div>
           <p>

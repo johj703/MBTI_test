@@ -29,11 +29,16 @@ const Layout = ({ children, user, setUser }) => {
           <div className="space-x-4">
             {user ? (
               <>
-                {/* 다른 페이지로 가는 버튼도 필요 합니다 */}
+                <Link to="/profile">프로필</Link>
+                <Link to="/test">테스트</Link>
+                <Link to="/results">결과</Link>
                 <button onClick={handleLogout}>로그아웃</button>
               </>
             ) : (
-              <Link to="/login">로그인</Link>
+              <>
+                <Link to="/login">로그인</Link>
+                <Link to="/signup">회원가입</Link>
+              </>
             )}
           </div>
         </nav>

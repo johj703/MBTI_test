@@ -1,6 +1,14 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Header = ({user, setUser}) => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setUser(null);
+        navigate("/login");
+    }
+
   return (
     <header>
       <nav>
@@ -16,7 +24,7 @@ const Header = ({user, setUser}) => {
             ) : (
                 <>
                     <Link to="/login">로그인</Link>
-                    <Link to="/signup">회원가입입</Link>
+                    <Link to="/signup">회원가입</Link>
                 </>
             )}
         </div>

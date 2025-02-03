@@ -28,6 +28,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         type="text"
         name="id"
         value={formData.id}
+        onChange={handleChange}
         placeholder="아이디"
         required
       />

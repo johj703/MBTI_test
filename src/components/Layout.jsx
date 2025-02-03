@@ -4,12 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 const Layout = ({ children, user, setUser }) => {
   const navigate = useNavigate();
 
-  // 사용자가 로그인하지 않은 상태에서 페이지에 접근하려고 할 때, login 페이지로 리디렉션
   useEffect(() => {
-    if (!user) {
+    // 현재 페이지가 public 페이지가 아니고, 사용자가 로그인하지 않은 경우에만 리다이렉트트
+    if(!publicPages.includes(location.pathname) && !user) {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [user, navigate, location]);
 
   // 로그아웃 기능
   const handleLogout = () => {

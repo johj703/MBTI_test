@@ -45,6 +45,7 @@ const AuthForm = ({ mode, onSubmit }) => {
           type="text"
           name="nickname"
           value={formData.nickname}
+          onChange={handleChange}
           placeholder="닉네임"
           required
           className="w-full p-4 border border-gray-300 rounded-lg"

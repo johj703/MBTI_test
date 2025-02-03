@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {useLocation, useNavigate } from "react-router-dom";
+import Header from './Header';
 
 const Layout = ({ children, user, setUser }) => {
   const navigate = useNavigate();
@@ -15,30 +16,11 @@ const Layout = ({ children, user, setUser }) => {
       navigate("/login");
     }
     // 의존성 배열: 이 값들이 변경될 때마다 effect 실행
-  }, [user, navigate, location]);
+  }, [user, navigate, location, publicPages]);
 
   return (
     <div>
-      <header>
-        <nav className="flex space-x-3">
-          <Link to="/">홈</Link>
-          <div className="space-x-4">
-            {user ? (
-              <>
-                <Link to="/profile">프로필</Link>
-                <Link to="/test">테스트</Link>
-                <Link to="/results">결과</Link>
-                <button onClick={handleLogout}>로그아웃</button>
-              </>
-            ) : (
-              <>
-                <Link to="/login">로그인</Link>
-                <Link to="/signup">회원가입</Link>
-              </>
-            )}
-          </div>
-        </nav>
-      </header>
+      <Header user={user} setUser={setUser} />
       <main className="container pt-10 mx-auto main">{children}</main>
     </div>
   );

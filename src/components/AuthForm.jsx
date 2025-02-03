@@ -32,7 +32,12 @@ const AuthForm = ({ mode, onSubmit }) => {
         required
       />
       <input
-      
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={handleChange}
+        placeholder="비밀번호"
+        required
       />
       {mode === "signup" && (
         <input

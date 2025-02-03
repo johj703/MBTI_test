@@ -11,9 +11,9 @@ const Header = ({user, setUser}) => {
 
   return (
     <header>
-      <nav>
+      <nav className="flex space-x-3">
         <Link to="/">홈</Link>
-        <div>
+        <div className="space-x-4">
             {user ? (
                 <>
                     <Link to="/profile">프로필</Link>

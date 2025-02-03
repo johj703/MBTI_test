@@ -26,28 +26,13 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route
             path="/profile"
-            element={
-              <ProtectedRoute user={user}>
-                <ProfilePage user={user} setUser={setUser} />
-              </ProtectedRoute>
-            }
-          />
+            element={<ProfilePage user={user} setUser={setUser} />}/>
           <Route
             path="/test"
-            element={
-              <ProtectedRoute user={user}>
-                <TestPage user={user} />
-              </ProtectedRoute>
-            }
-          />
+            element={<TestPage user={user} />}/>
           <Route
             path="/results"
-            element={
-              <ProtectedRoute user={user}>
-                <TestResultPage user={user} />
-              </ProtectedRoute>
-            }
-          />
+            element={<TestResultPage user={user} />}/>
         </Routes>
       </Layout>
     </Router>

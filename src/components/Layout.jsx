@@ -10,6 +10,13 @@ const Layout = ({ children, user, setUser }) => {
   // 로그인이 필요없는 페이지들 경로
   const publicPages = ['/', '/login', '/signup'];
 
+  // 로그아웃 함수
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+  };
+
   useEffect(() => {
     // 현재 페이지가 public 페이지가 아니고, 사용자가 로그인하지 않은 경우에만 리다이렉트
     if(!publicPages.includes(location.pathname) && !user) {
@@ -20,7 +27,7 @@ const Layout = ({ children, user, setUser }) => {
 
   return (
     <div>
-      <Header user={user} setUser={setUser} />
+      <Header user={user} onLogout={handleLogout} />
       <main className="container pt-10 mx-auto main">{children}</main>
     </div>
   );

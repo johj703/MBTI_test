@@ -1,13 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 
-const Header = ({user, setUser}) => {
+const Header = ({user, onLogout}) => {
     const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setUser(null);
-        navigate("/login");
-    }
 
   return (
     <header>
@@ -19,7 +13,6 @@ const Header = ({user, setUser}) => {
                     <Link to="/profile">프로필</Link>
                     <Link to="/test">테스트</Link>
                     <Link to="/results">결과</Link>
-                    <button onClick={handleLogout}>로그아웃</button>
                 </>
             ) : (
                 <>

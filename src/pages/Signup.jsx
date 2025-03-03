@@ -7,15 +7,30 @@ const Signup = () => {
 
   const handleSignup = async (formData) => {
     try {
-      // 실제 API 호출 대신 임시 처리
-      console.log("회원가입 데이터", formData);
+      // 이미 존재하는 사용자인지 확인
+      const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+      const userExists = existingUsers.some((user) => user.id === formData.id);
 
-      // 모의 성공 응답
+      if (userExists) {
+        alert("이미 존재하는 아이디입니다.");
+        return;
+      }
+
+      // 새 사용자 정보 추가
+      const useUser = {
+        ...formData,
+        createAt: new Date().toISOString(), // 가입 시간 기록
+      };
+
+      // 사용자 목록에 추가
+      existingUsers.push(newUser);
+      localStorage.setItem("user", JSON.stringify(existingUsers));
+
       alert("회원가입이 완료 되었습니다!");
       navigate("/login");
     } catch (error) {
       console.error("회원가입 에러: ", error);
-      alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      alert("회원가입 중 오류가 발생했습니다.");
     }
   };
   return (

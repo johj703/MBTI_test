@@ -36,7 +36,10 @@ const Signup = () => {
   return (
     <div>
       <div>
-        <h1>회원가입</h1>
+        <div>
+          <h2>회원가입</h2>
+          <p>계정을 생성하여 서비스를 이용해보세요.</p>
+        </div>
         <AuthForm mode="signup" onSubmit={handleSignup} />
         <div>
           <p>

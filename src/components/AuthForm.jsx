@@ -23,7 +23,10 @@ const AuthForm = ({ mode, onSubmit }) => {
   };
 
   return (
-    <form className="flex flex-col w-full mx-auto space-y-4 max-x-md">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col w-full mx-auto space-y-4 max-x-md"
+    >
       <input
         type="text"
         name="id"

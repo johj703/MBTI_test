@@ -17,14 +17,14 @@ const Signup = () => {
       }
 
       // 새 사용자 정보 추가
-      const useUser = {
+      const newUser = {
         ...formData,
-        createAt: new Date().toISOString(), // 가입 시간 기록
+        createdAt: new Date().toISOString(), // 가입 시간 기록
       };
 
       // 사용자 목록에 추가
       existingUsers.push(newUser);
-      localStorage.setItem("user", JSON.stringify(existingUsers));
+      localStorage.setItem("users", JSON.stringify(existingUsers));
 
       alert("회원가입이 완료 되었습니다!");
       navigate("/login");
@@ -45,7 +45,7 @@ const Signup = () => {
         <AuthForm mode="signup" onSubmit={handleSignup} />
         <div className="text-sm text-center">
           <p className="text-gray-600">
-            이미 계정이 있으신가요?
+            이미 계정이 있으신가요?{" "}
             <Link
               to="/login"
               className="font-medium text-blue-600 hover:text-blue-500"

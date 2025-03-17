@@ -20,17 +20,22 @@ const Login = ({ setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // 실제 서버 연동 시에는 이 부분에서 서버로 로그인 요청을 보내야 함.
-      if (FormData.email && FormData.password) {
-        const userData = {
-          email: FormData.email,
-          id: Date.now(), // 임시 사용자 ID
-        };
+      // localStorage에서 사용자 목록 가져오기
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
 
+      // 일치하는 사용자 찾기(아이디와 비밀번호로 확인)
+      const user = users.find(
+        (u) => u.id === formData.email && u.password === formData.password
+      );
+
+      // 실제 서버 연동 시에는 이 부분에서 서버로 로그인 요청을 보내야 함.
+      if (user) {
         // 로컬 스토리지에 사용자 정보 저장
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("user", JSON.stringify(user));
+
         // 전역 사용자 상태 업데이트
         setUser(userData);
+
         // 홈페이지로 리디렉션
         navigate("/");
       } else {

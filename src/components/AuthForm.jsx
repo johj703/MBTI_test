@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const AuthForm = ({ mode, onSubmit }) => {
   const [formData, setFormData] = useState({
-    id: "",
+    email: "",
     password: "",
     nickname: mode === "signup" ? "" : undefined, // 회원가입일 경우에만 초기화
   });
@@ -29,10 +29,10 @@ const AuthForm = ({ mode, onSubmit }) => {
     >
       <input
         type="text"
-        name="id"
-        value={formData.id}
+        name="email"
+        value={formData.email}
         onChange={handleChange}
-        placeholder="아이디"
+        placeholder="이메일"
         required
         className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />

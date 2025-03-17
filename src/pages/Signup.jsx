@@ -9,7 +9,9 @@ const Signup = () => {
     try {
       // 이미 존재하는 사용자인지 확인
       const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
-      const userExists = existingUsers.some((user) => user.id === formData.id);
+      const userExists = existingUsers.some(
+        (user) => user.email === formData.email
+      );
 
       if (userExists) {
         alert("이미 존재하는 아이디입니다.");

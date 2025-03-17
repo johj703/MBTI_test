@@ -25,7 +25,7 @@ const Login = ({ setUser }) => {
 
       // 일치하는 사용자 찾기(아이디와 비밀번호로 확인)
       const user = users.find(
-        (u) => u.id === formData.email && u.password === formData.password
+        (u) => u.email === formData.email && u.password === formData.password
       );
 
       // 실제 서버 연동 시에는 이 부분에서 서버로 로그인 요청을 보내야 함.

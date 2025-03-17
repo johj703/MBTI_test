@@ -1,7 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = ({ user, onLogout }) => {
+const Header = ({ user, setUser }) => {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-10 bg-white shadow">
@@ -16,7 +22,10 @@ const Header = ({ user, onLogout }) => {
                 <Link to="/profile">프로필</Link>
                 <Link to="/test">테스트</Link>
                 <Link to="/results">결과</Link>
-                <button className="text-red-600 hover:text-red-700">
+                <button
+                  onClick={handleLogout}
+                  className="text-red-600 hover:text-red-700"
+                >
                   로그아웃
                 </button>
               </>

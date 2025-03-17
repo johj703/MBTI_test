@@ -5,15 +5,15 @@ import { useState } from "react";
 const Login = ({ setUser }) => {
   const navigate = useNavigate();
   const [formData, setFormdata] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setFormdata(prev => ({
+    const { name, value } = e.target;
+    setFormdata((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -21,59 +21,80 @@ const Login = ({ setUser }) => {
     e.preventDefault();
     try {
       // 실제 서버 연동 시에는 이 부분에서 서버로 로그인 요청을 보내야 함.
-      if(FormData.email && FormData.password){
+      if (FormData.email && FormData.password) {
         const userData = {
           email: FormData.email,
           id: Date.now(), // 임시 사용자 ID
         };
 
         // 로컬 스토리지에 사용자 정보 저장
-        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem("user", JSON.stringify(userData));
         // 전역 사용자 상태 업데이트
         setUser(userData);
         // 홈페이지로 리디렉션
-        navigate('/');
+        navigate("/");
       } else {
-        throw new Error('이메일과 비밀번호를 입력해 주세요.');
+        throw new Error("이메일과 비밀번호를 입력해 주세요.");
       }
     } catch (error) {
       alert(error.message || "로그인에 실패 했습니다. 다시 시도해주세요.");
     }
   };
   return (
-    <div className="">
-      <h1>로그인 페이지 입니다.</h1>
-      <form onSubmit={handleSubmit} className="">
-        <div>
-          <label className="">이메일: </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className=""
-            required
-          />
+    <div className="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8">
+        <div className="text-center">
+          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+            로그인 페이지 입니다.
+          </h2>
+          <p className="mt-2 text-sm text-gray-600">
+            계정 정보를 입력해서 로그인하세요.
+          </p>
         </div>
-        <div>
-          <label className="">비밀번호: </label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className=""
-            required
-          />
+
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+          <div className="space-y-4">
+            <div>
+              <label className="">이메일: </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <div>
+              <label className="">비밀번호: </label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="w-full p-4 text-white transition-colors bg-blue-500 rounded-lg hover:bg-blue-600"
+          >
+            로그인
+          </button>
+        </form>
+        <div className="text-sm text-center">
+          <p className="text-gray-600">
+            계정이 없으신가요?{" "}
+            <Link
+              to="/signup"
+              className="font-medium text-blue-600 hover:text-blue-500"
+            >
+              회원가입
+            </Link>
+          </p>
         </div>
-        <button type="submit" className="">
-          로그인
-        </button>
-      </form>
-      <div className="">
-        <p>
-          계정이 없으신가요? <Link to="/signup" className="">회원가입</Link>
-        </p>
       </div>
     </div>
   );

@@ -4,8 +4,11 @@ const Header = ({ user, setUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    // 로컬 스토리지에서 사용자 정보 제거
+    localStorage.removeItem("user");
+    // 전역 사용자 상태 초기화
     setUser(null);
+    // 로그인 페이지로 리디렉션
     navigate("/login");
   };
 

@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = ({ user, setUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    // 방어적 코드 추가
+    if (typeof setUser !== "function") {
+      console.error("setUser is not a function");
+      // LocalStorage만 처리하고 페이지 새로고침
+      localStorage.removeItem("user");
+      window.location.reload();
+      return;
+    }
+    // 정상 로그아웃 처리
     // 로컬 스토리지에서 사용자 정보 제거
     localStorage.removeItem("user");
     // 전역 사용자 상태 초기화

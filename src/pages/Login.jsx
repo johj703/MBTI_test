@@ -34,7 +34,7 @@ const Login = ({ setUser }) => {
         localStorage.setItem("user", JSON.stringify(user));
 
         // 전역 사용자 상태 업데이트
-        setUser(userData);
+        setUser(user);
 
         // 홈페이지로 리디렉션
         navigate("/");

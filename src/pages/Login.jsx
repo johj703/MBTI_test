@@ -39,10 +39,11 @@ const Login = ({ setUser }) => {
         // 홈페이지로 리디렉션
         navigate("/");
       } else {
-        throw new Error("이메일과 비밀번호를 입력해 주세요.");
+        alert("이메일 또는 비밀번호가 일치하지 않습니다.");
       }
     } catch (error) {
-      alert(error.message || "로그인에 실패 했습니다. 다시 시도해주세요.");
+      console.log("로그인 에러: ", error);
+      alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
   return (

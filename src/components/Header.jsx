@@ -19,6 +19,9 @@ const Header = ({ user, setUser }) => {
           <div className="space-x-4">
             {user ? (
               <>
+                <span className="text-gray-700">
+                  {user.nickname}님 안녕하세요!
+                </span>
                 <Link to="/profile">프로필</Link>
                 <Link to="/test">테스트</Link>
                 <Link to="/results">결과</Link>

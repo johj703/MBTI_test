@@ -31,7 +31,16 @@ try{
     throw error;
 }
 };
-// 테스트 결과를 업데이트 하는 함수
+// 테스트 결과를 보여줄지 아니면 숨길지 하는 함수
 export const updateTestResultVisibility = async(id, visibility) => {
-    
+try{
+    // patch 요청으로 테스트 결과를 보여주는 상태만 업데이트
+    const response = await axios.patch(`${API_URL}/${id}`, {
+        isVisible: visibility
+    });
+    return response.data;
+} catch(error) {
+    console.error('테스트 결과 가시성 업데이트 오류:', error);
+    throw error;
+}
 }

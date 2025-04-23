@@ -21,11 +21,11 @@ try{
     throw error;
 }
 };
-// 테스트 결과를 삭제하는 함수수
+// 테스트 결과를 삭제하는 함수
 export const deleteTestResult = async (id) => {
 
 };
-// 
+// 테스트 결과를 업데이트 하는 함수
 export const updateTestResultVisibility = async(id, visibility) => {
     
 }

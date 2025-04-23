@@ -23,7 +23,13 @@ try{
 };
 // 테스트 결과를 삭제하는 함수
 export const deleteTestResult = async (id) => {
-
+try{
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
+} catch(error) {
+    console.error('테스트 결과 삭제 오류', error);
+    throw error;
+}
 };
 // 테스트 결과를 업데이트 하는 함수
 export const updateTestResultVisibility = async(id, visibility) => {

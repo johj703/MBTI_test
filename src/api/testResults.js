@@ -9,7 +9,17 @@ export const getTestResults = async () => {
 };
 // 새로운 테스트 결과를 생성하는 함수
 export const createTestResult = async (resultData) => {
-
+try{
+    const response = await axios.post(API_URL, {
+        ...resultData,
+        createdAt: new Date().toISOString(),
+        inVisible: true // 기본적으로 결과는 보이도록 설정정
+    });
+    return response.data;
+} catch(error) {
+    console.error('테스트 결과 생성 오류: ', error);
+    throw error;
+}
 };
 // 테스트 결과를 삭제하는 함수수
 export const deleteTestResult = async (id) => {

@@ -1,10 +1,75 @@
 import React from "react";
+import { deleteTestResult } from "../api/testResults";
 
 const TestResultList = ({ results, user, onUpdate, onDelete }) => {
+  // 현재 로그인한 사용자의 결과만 필터링
+  const userResults = user
+    ? results.filter((result) => result.userId === user.id)
+    : [];
+
+  const handleDelete = async (id) => {
+    try {
+      if (window.fonfirm("정말 이 테스트 결과를 삭제하시겠습니까?")) {
+        await deleteTestResult(id);
+        onDelete(); // 부모 컴포넌트에 삭제 알림
+      }
+    } catch (error) {
+      console.error("결과 삭제 오류", error);
+      alert("결과 삭제 중 오류가 발생했습니다.");
+    }
+  };
+
+  // MBTI 유형에 따른 배경색 설정
+  const getMbtiColor = (mbtiType) => {
+    const firstLetter = mbtiType.charAt(0);
+    switch (firstLetter) {
+      case "E":
+        return "bg-yellow-100";
+      case "I":
+        return "bg-blue-100";
+      default:
+        return "bg-gray-100";
+    }
+  };
+
+  // 날짜 포맷팅 함수
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  if (!user) {
+    return (
+      <div>
+        <p>테스트 결과를 보려면 로그인이 필요합니다.</p>
+        <button onClick={() => (window.location.href = "/login")}>
+          로그인하기
+        </button>
+      </div>
+    );
+  }
+
+  if (userResults.length === 0) {
+    return (
+      <div>
+        <p>아직 테스트 결과가 없습니다.</p>
+        <button onClick={() => (window.location.href = "/test")}>
+          테스트 시작하기
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div>
       {userResults.map((result) => {
-        <div>
+        <div key={result.id}>
           <div>
             <div>
               <h3>{result.mbtiType}</h3>
@@ -16,8 +81,14 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
               </div>
             </div>
             <div>
-              <button>{result.inVisible ? "숨기기" : "공개하기"}</button>
-              <button>삭제</button>
+              <button
+                onClick={() =>
+                  handleVisibilityToggle(result.id, result.isVisible)
+                }
+              >
+                {result.inVisible ? "숨기기" : "공개하기"}
+              </button>
+              <button onClick={() => handleDelete(result.id)}>삭제</button>
             </div>
           </div>
         </div>;

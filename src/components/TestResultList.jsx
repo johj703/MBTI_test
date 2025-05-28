@@ -29,8 +29,13 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
     }
   };
 
-  // MBTI 유형에 따른 배경색 설정
+  // MBTI 유형에 따른 배경색을 결정하는 함수(방어적 코드 추가)
   const getMbtiColor = (mbtiType) => {
+    // mbtiType이 없거나 유효하지 않은 경우 기본색 반환
+    if (!mbtiType || typeof mbtiType !== "string" || mbtiType.length === 0) {
+      return "bg-gray-100";
+    }
+
     const firstLetter = mbtiType.charAt(0);
     switch (firstLetter) {
       case "E":
@@ -42,16 +47,22 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
     }
   };
 
-  // 날짜 포맷팅 함수
+  // 날짜 한국어 형식으로 변환하는 함수
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    if (!dateString) return "날짜 정보 없음";
+
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("ko-KR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch (error) {
+      return "유효하지 않은 날짜";
+    }
   };
   // 로그인하지 않은 사용자에게 표시할 UI
   if (!user) {

@@ -56,9 +56,14 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   // 로그인하지 않은 사용자에게 표시할 UI
   if (!user) {
     return (
-      <div>
-        <p>테스트 결과를 보려면 로그인이 필요합니다.</p>
-        <button onClick={() => (window.location.href = "/login")}>
+      <div className="py-8 text-center">
+        <p className="text-lg text-gray-600">
+          테스트 결과를 보려면 로그인이 필요합니다.
+        </p>
+        <button
+          onClick={() => (window.location.href = "/login")}
+          className="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+        >
           로그인하기
         </button>
       </div>
@@ -67,9 +72,12 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   // 테스트 결과가 없는 경우 표시할 UI
   if (userResults.length === 0) {
     return (
-      <div>
-        <p>아직 테스트 결과가 없습니다.</p>
-        <button onClick={() => (window.location.href = "/test")}>
+      <div className="py-8 text-center">
+        <p className="text-lg text-gray-600">아직 테스트 결과가 없습니다.</p>
+        <button
+          onClick={() => (window.location.href = "/test")}
+          className="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+        >
           테스트 시작하기
         </button>
       </div>
@@ -77,28 +85,49 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   }
   // 테스트 결과 목록을 렌더링
   return (
-    <div>
+    <div className="space-y-6">
       {userResults.map((result) => {
-        <div key={result.id}>
-          <div>
-            <div>
-              <h3>{result.mbtiType}</h3>
-              <span>{formatDate(result.createAt || result.testDate)}</span>
+        <div
+          key={result.id}
+          className={`border rounded-lg shadow-sm overflow-hidden ${getMbtiColor(
+            result.mbtiType
+          )}`}
+        >
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-xl font-bold">{result.mbtiType}</h3>
+              <span className="text-sm text-gray-500">
+                {formatDate(result.createAt || result.testDate)}
+              </span>
             </div>
-            <div>
+            <div className="flex items-center justify-between mt-4">
               <div>
-                <span>{result.inVisible ? "공개" : "비공개"}</span>
+                <span
+                  className={`px-2 py-1 rounded-full text-xs ${
+                    result.isVisible
+                      ? "bg-green-100 text-green-800"
+                      : "bg-gray-100 text-gray-800"
+                  }`}
+                >
+                  {result.inVisible ? "공개" : "비공개"}
+                </span>
               </div>
             </div>
-            <div>
+            <div className="space-x-2">
               <button
                 onClick={() =>
                   handleVisibilityToggle(result.id, result.isVisible)
                 }
+                className="px-3 py-1 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600"
               >
                 {result.inVisible ? "숨기기" : "공개하기"}
               </button>
-              <button onClick={() => handleDelete(result.id)}>삭제</button>
+              <button
+                onClick={() => handleDelete(result.id)}
+                className="px-3 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-600"
+              >
+                삭제
+              </button>
             </div>
           </div>
         </div>;

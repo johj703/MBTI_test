@@ -6,7 +6,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   const userResults = user
     ? results.filter((result) => result.userId === user.id)
     : [];
-
+  // 테스트 결과 삭제 처리 함수
   const handleDelete = async (id) => {
     try {
       if (window.fonfirm("정말 이 테스트 결과를 삭제하시겠습니까?")) {
@@ -53,7 +53,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
       minute: "2-digit",
     });
   };
-
+  // 로그인하지 않은 사용자에게 표시할 UI
   if (!user) {
     return (
       <div>
@@ -64,7 +64,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
       </div>
     );
   }
-
+  // 테스트 결과가 없는 경우 표시할 UI
   if (userResults.length === 0) {
     return (
       <div>
@@ -75,7 +75,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
       </div>
     );
   }
-
+  // 테스트 결과 목록을 렌더링
   return (
     <div>
       {userResults.map((result) => {

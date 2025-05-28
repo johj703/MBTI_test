@@ -10,12 +10,11 @@ const Test = ({ user }) => {
   const handleTestSubmit = async (answers) => {
     const result = calculateMBTI(answers);
     const resultData = {
-      userId: user.id,
-      nickname: user.nickname,
-      result,
-      answers,
-      date: new Date().toISOString(),
-      visibility: true,
+      userId: user.id || user?.email,
+      nickname: user?.nickname,
+      mbtiType: mbtiResult,
+      answers: answers,
+      testDate: new Date().toISOString(),
     };
     await createTestResult(resultData);
     navigate("/results");

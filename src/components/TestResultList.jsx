@@ -4,12 +4,13 @@ import { deleteTestResult } from "../api/testResults";
 const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   // 현재 로그인한 사용자의 결과만 필터링
   const userResults = user
-    ? results.filter((result) => result.userId === user.id)
+    ? results.filter((result) => result.nickname === user.nickname)
     : [];
+
   // 테스트 결과 삭제 처리 함수
   const handleDelete = async (id) => {
     try {
-      if (window.fonfirm("정말 이 테스트 결과를 삭제하시겠습니까?")) {
+      if (window.confirm("정말 이 테스트 결과를 삭제하시겠습니까?")) {
         await deleteTestResult(id);
         onDelete(); // 부모 컴포넌트에 삭제 알림
       }
@@ -64,6 +65,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
       return "유효하지 않은 날짜";
     }
   };
+
   // 로그인하지 않은 사용자에게 표시할 UI
   if (!user) {
     return (
@@ -80,6 +82,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
       </div>
     );
   }
+
   // 테스트 결과가 없는 경우 표시할 UI
   if (userResults.length === 0) {
     return (
@@ -94,54 +97,64 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
       </div>
     );
   }
+
   // 테스트 결과 목록을 렌더링
   return (
     <div className="space-y-6">
-      {userResults.map((result) => {
-        <div
-          key={result.id}
-          className={`border rounded-lg shadow-sm overflow-hidden ${getMbtiColor(
-            result.mbtiType
-          )}`}
-        >
-          <div className="p-4">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xl font-bold">{result.mbtiType}</h3>
-              <span className="text-sm text-gray-500">
-                {formatDate(result.createAt || result.testDate)}
-              </span>
-            </div>
-            <div className="flex items-center justify-between mt-4">
-              <div>
-                <span
-                  className={`px-2 py-1 rounded-full text-xs ${
-                    result.isVisible
-                      ? "bg-green-100 text-green-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {result.inVisible ? "공개" : "비공개"}
+      {userResults.map((result, index) => {
+        if (!result || !result.id) {
+          return null;
+        }
+        return (
+          <div
+            key={result.id}
+            className={`border rounded-lg shadow-sm overflow-hidden ${getMbtiColor(
+              result.result
+            )}`}
+          >
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-xl font-bold">
+                  {result.result || "결과 없음"}
+                </h3>
+                <span className="text-sm text-gray-500">
+                  {formatDate(result.createdAt || result.date)}
                 </span>
               </div>
-            </div>
-            <div className="space-x-2">
-              <button
-                onClick={() =>
-                  handleVisibilityToggle(result.id, result.isVisible)
-                }
-                className="px-3 py-1 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600"
-              >
-                {result.inVisible ? "숨기기" : "공개하기"}
-              </button>
-              <button
-                onClick={() => handleDelete(result.id)}
-                className="px-3 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-600"
-              >
-                삭제
-              </button>
+
+              <div className="flex items-center justify-between mt-4">
+                <div>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs ${
+                      !result.inVisible
+                        ? "bg-green-100 text-green-800"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {!result.inVisible ? "공개" : "비공개"}
+                  </span>
+                </div>
+
+                <div className="space-x-2">
+                  <button
+                    onClick={() =>
+                      handleVisibilityToggle(result.id, !result.inVisible)
+                    }
+                    className="px-3 py-1 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600"
+                  >
+                    {!result.inVisible ? "숨기기" : "공개하기"}
+                  </button>
+                  <button
+                    onClick={() => handleDelete(result.id)}
+                    className="px-3 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-600"
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>;
+        );
       })}
     </div>
   );

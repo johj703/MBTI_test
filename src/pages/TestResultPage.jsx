@@ -3,14 +3,18 @@ import TestResultList from "../components/TestResultList";
 import { getTestResults } from "../api/testResults";
 
 const TestResultPage = ({ user }) => {
+  // 테스트 결과 목록을 저장하는 state
   const [results, setResults] = useState([]);
+  // 로딩 상태를 관리하는 state
   const [loading, setLoading] = useState(true);
+  // 에러 메세지를 저장하는 state
   const [error, setError] = useState(null);
 
+  // API에서 테스트 결과를 가져오는 함수수
   const fetchResults = async () => {
     try {
       setLoading(true);
-      const data = await getTestResults();
+      const data = await getTestResults(); // API 호출
       setResults(data);
       setError(null);
     } catch (error) {

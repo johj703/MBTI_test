@@ -18,6 +18,16 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
       alert("결과 삭제 중 오류가 발생했습니다.");
     }
   };
+  // 테스트 결과 공개/비공개 상태 변경 함수
+  const handleVisibilityToggle = async (id, currentVisibility) => {
+    try {
+      await updateTestResultVisibility(id, !currentVisibility);
+      onUpdate(); // 부모 컴포넌트에 업데이트 알림
+    } catch (error) {
+      console.log("가시성 업데이트 오류: ", error);
+      alert("상태 변경 중 오류가 발생했습니다.");
+    }
+  };
 
   // MBTI 유형에 따른 배경색 설정
   const getMbtiColor = (mbtiType) => {

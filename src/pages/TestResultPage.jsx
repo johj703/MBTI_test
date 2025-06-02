@@ -10,7 +10,7 @@ const TestResultPage = ({ user }) => {
   // 에러 메세지를 저장하는 state
   const [error, setError] = useState(null);
 
-  // API에서 테스트 결과를 가져오는 함수수
+  // API에서 테스트 결과를 가져오는 함수
   const fetchResults = async () => {
     try {
       setLoading(true);

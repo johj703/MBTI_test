@@ -55,7 +55,16 @@ const Profile = ({ user, setUser }) => {
             />
             <p>2~20자 사이로 입력해 주세요. ({nickname.length}/20)</p>
           </div>
-          <button type="submit">프로필 업데이트</button>
+          <button
+            type="submit"
+            disabled={
+              isLoading ||
+              !nickname.trim() ||
+              nickname.trim() === user?.nickname
+            }
+          >
+            {isLoading ? "업데이트 중" : "프로필 업데이트"}
+          </button>
         </form>
       </div>
     </div>

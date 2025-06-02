@@ -10,7 +10,7 @@ const Test = ({ user }) => {
   const handleTestSubmit = async (answers) => {
     try {
       // questions를 함께 전달
-      const result = calculateMBTI(answers, questions);
+      const result = calculateMBTI(answers);
 
       const resultData = {
         userId: user?.id || user?.email,

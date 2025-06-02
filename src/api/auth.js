@@ -27,10 +27,10 @@ export const getUserProfile = async (token) => {
 // 유저 프로필 업데이트
 export const updateProfile = async (formData) => {
   const token = localStorage.getItem("token");
-  const response = await axios.get(``, formData, {
+  const response = await axios.get(`${API_URL}/profile`, formData, {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
     },
   });
   return response.data;

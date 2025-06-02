@@ -74,12 +74,19 @@ const Profile = ({ user, setUser }) => {
   // 로그인하지 않은 경우
   if (!user) {
     return (
-      <div>
-        <div>
-          <div>
-            <h1>접근 권한 없음</h1>
-            <p>프로필을 수정하려면 로그인이 필요합니다.</p>
-            <button onClick={() => (window.location.href = "/login")}>
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">
+              접근 권한 없음
+            </h1>
+            <p className="text-gray-600 mb-6">
+              프로필을 수정하려면 로그인이 필요합니다.
+            </p>
+            <button
+              onClick={() => (window.location.href = "/login")}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            >
               로그인하기
             </button>
           </div>
@@ -88,40 +95,58 @@ const Profile = ({ user, setUser }) => {
     );
   }
   return (
-    <div>
-      <div>
-        <div>
-          <h1>프로필 수정</h1>
-          <p>개인 정보를 업데이트 하세요.</p>
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg p-6">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900 text-center">
+            프로필 수정
+          </h1>
+          <p className="text-gray-600 text-center mt-2">
+            개인 정보를 업데이트 하세요.
+          </p>
         </div>
 
         {/* 피드백 메세지 */}
         {message && (
-          <div>
-            <p>{message}</p>
+          <div
+            className={`mb-4 p-3 rounded-md ${
+              messageType === "success"
+                ? "bg-green-100 border border-green-400 text-green-700"
+                : "bg-red-100 border border-red-400 text-red-700"
+            }`}
+          >
+            <p className="text-sm">{message}</p>
           </div>
         )}
 
         {/* 현재 사용자 정보 표시 */}
-        <div>
-          <h3>현재 정보</h3>
-          <p>이메일: {user.email}</p>
-          <p>현재 닉네임: {user.nickname}</p>
+        <div className="mb-6 p-4 bg-gray-50 rounded-md">
+          <h3 className="text-sm font-medium text-gray-700 mb-2">현재 정보</h3>
+          <p className="text-sm text-gray-600">이메일: {user.email}</p>
+          <p className="text-sm text-gray-600">현재 닉네임: {user.nickname}</p>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="nickname">새 닉네임</label>
+            <label
+              htmlFor="nickname"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              새 닉네임
+            </label>
             <input
               id="nickname"
               type="text"
               value={nickname}
               onChange={handleNicknameChange}
               placeholder="새로운 닉네임을 입력하세요."
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={isLoading}
               maxLength={20}
             />
-            <p>2~20자 사이로 입력해 주세요. ({nickname.length}/20)</p>
+            <p className="text-xs text-gray-500 mt-1">
+              2~20자 사이로 입력해 주세요. ({nickname.length}/20)
+            </p>
           </div>
           <button
             type="submit"
@@ -130,14 +155,24 @@ const Profile = ({ user, setUser }) => {
               !nickname.trim() ||
               nickname.trim() === user?.nickname
             }
+            className={`w-full py-3 px-4 rounded-md font-medium transition-colors ${
+              isLoading ||
+              !nickname.trim() ||
+              nickname.trim() === user?.nickname
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            }`}
           >
             {isLoading ? "업데이트 중" : "프로필 업데이트"}
           </button>
         </form>
 
         {/* 추가 액션 버튼들 */}
-        <div>
-          <button onClick={() => (window.location.href = "/")}>
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="w-full py-2 px-4 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
+          >
             홈으로 돌아가기
           </button>
         </div>

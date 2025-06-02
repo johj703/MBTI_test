@@ -28,13 +28,13 @@ const Profile = ({ user, setUser }) => {
       return;
     }
 
-    if (!nickname.trim().length < 2) {
+    if (nickname.trim().length < 2) {
       setMessage("닉네임은 최소 2글자 이상이어야 합니다.");
       setMessageType("error");
       return;
     }
 
-    if (!nickname.trim() === user?.nickname) {
+    if (nickname.trim() === user?.nickname) {
       setMessage("현재 닉네임과 동일합니다.");
       setMessageType("error");
       return;

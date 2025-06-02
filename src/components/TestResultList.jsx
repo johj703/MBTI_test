@@ -1,5 +1,8 @@
 import React from "react";
-import { deleteTestResult } from "../api/testResults";
+import {
+  deleteTestResult,
+  updateTestResultVisibility,
+} from "../api/testResults";
 
 const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   // 현재 로그인한 사용자의 결과만 필터링

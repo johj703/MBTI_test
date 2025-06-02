@@ -25,6 +25,14 @@ const Profile = ({ user, setUser }) => {
             <p>{message}</p>
           </div>
         )}
+
+        {/* 현재 사용자 정보 표시 */}
+        <div>
+          <h3>현재 정보</h3>
+          <p>이메일: {user.email}</p>
+          <p>현재 닉네임: {user.nickname}</p>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <div>
             <label>닉네임</label>

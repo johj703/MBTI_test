@@ -66,6 +66,13 @@ const Profile = ({ user, setUser }) => {
             {isLoading ? "업데이트 중" : "프로필 업데이트"}
           </button>
         </form>
+
+        {/* 추가 액션 버튼들 */}
+        <div>
+          <button onClick={() => (window.location.href = "/")}>
+            홈으로 돌아가기
+          </button>
+        </div>
       </div>
     </div>
   );

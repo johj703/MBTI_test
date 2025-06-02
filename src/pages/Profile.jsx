@@ -4,6 +4,7 @@ const Profile = ({ user, setUser }) => {
   const [nickname, setNickname] = useState(user?.nickname || "");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // "success" 또는 "error"
 
   // 닉네임 변경 핸들러(사용자가 타이핑할 때마다 이전 메시지 제거)
   const handleNicknameChange = (e) => {
@@ -41,6 +42,31 @@ const Profile = ({ user, setUser }) => {
 
     setIsLoading(true);
     setMessage("");
+
+    try {
+      // localStorage에서 현재 사용자 정보 업데이트
+      const updateUser = { ...user, nickname: nickname.trim() };
+      localStorage.setItem("user", JSON.stringify(updateUser));
+
+      // localStorage의 users 배열도 업데이트(회원가입 시 저장된 사용자 목록)
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const updatedUsers = users.map((u) =>
+        u.email === user.email ? { ...u, nickname: nickname.trim() } : u
+      );
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+      // 전역 사용자 상테 업데이트(Header 등에서 즉시 반영됨)
+      setUser(updatedUser);
+
+      setMessage("프로필이 성공적으로 업데이트 되었습니다!");
+      setMessageType("Success");
+    } catch (error) {
+      console.error("프로필 업데이트 오류: ", error);
+      setMessage("프로필 업데이트 중 오류가 발생했습니다. 다시 시도해 주세요.");
+      setMessageType("error");
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <div>

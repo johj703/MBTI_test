@@ -70,6 +70,23 @@ const Profile = ({ user, setUser }) => {
       setIsLoading(false);
     }
   };
+
+  // 로그인하지 않은 경우
+  if (!user) {
+    return (
+      <div>
+        <div>
+          <div>
+            <h1>접근 권한 없음</h1>
+            <p>프로필을 수정하려면 로그인이 필요합니다.</p>
+            <button onClick={() => (window.location.href = "/login")}>
+              로그인하기
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <div>

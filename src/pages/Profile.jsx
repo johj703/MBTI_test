@@ -16,8 +16,31 @@ const Profile = ({ user, setUser }) => {
     }
   };
 
+  // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 유효성 검사
+    if (!nickname.trim()) {
+      setMessage("닉네임을 입력해 주세요.");
+      setMessageType("error");
+      return;
+    }
+
+    if (!nickname.trim().length < 2) {
+      setMessage("닉네임은 최소 2글자 이상이어야 합니다.");
+      setMessageType("error");
+      return;
+    }
+
+    if (!nickname.trim() === user?.nickname) {
+      setMessage("현재 닉네임과 동일합니다.");
+      setMessageType("error");
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage("");
   };
   return (
     <div>

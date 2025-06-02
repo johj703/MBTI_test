@@ -44,9 +44,11 @@ const Profile = ({ user, setUser }) => {
     setMessage("");
 
     try {
+      // updatedUser 변수를 먼저 선언
+      const updatedUser = { ...user, nickname: nickname.trim() };
+
       // localStorage에서 현재 사용자 정보 업데이트
-      const updateUser = { ...user, nickname: nickname.trim() };
-      localStorage.setItem("user", JSON.stringify(updateUser));
+      localStorage.setItem("user", JSON.stringify(updatedUser));
 
       // localStorage의 users 배열도 업데이트(회원가입 시 저장된 사용자 목록)
       const users = JSON.parse(localStorage.getItem("users") || "[]");

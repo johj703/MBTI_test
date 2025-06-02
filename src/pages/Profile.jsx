@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const Profile = ({ user, setUser }) => {
   const [nickname, setNickname] = useState(user?.nickname || "");
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleNicknameChange = (e) => {
@@ -35,8 +36,17 @@ const Profile = ({ user, setUser }) => {
 
         <form onSubmit={handleSubmit}>
           <div>
-            <label>닉네임</label>
-            <input onChange={handleNicknameChange} />
+            <label htmlFor="nickname">새 닉네임</label>
+            <input
+              id="nickname"
+              type="text"
+              value={nickname}
+              onChange={handleNicknameChange}
+              placeholder="새로운 닉네임을 입력하세요."
+              disabled={isLoading}
+              maxLength={20}
+            />
+            <p>2~20자 사이로 입력해 주세요. ({nickname.length}/20)</p>
           </div>
           <button type="submit">프로필 업데이트</button>
         </form>

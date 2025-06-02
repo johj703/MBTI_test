@@ -5,8 +5,15 @@ const Profile = ({ user, setUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  // 닉네임 변경 핸들러(사용자가 타이핑할 때마다 이전 메시지 제거)
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
+    // 이전에 표시된 에러나 성공 메세지를 즉시 제거
+    // 사용자가 문제를 사정하려고 시도하고 있다는 것을 감지
+    if (message) {
+      setMessage("");
+      setMessageType("");
+    }
   };
 
   const handleSubmit = async (e) => {

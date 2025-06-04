@@ -3,6 +3,7 @@ import {
   deleteTestResult,
   updateTestResultVisibility,
 } from "../api/testResults";
+import { mbtiDescriptions } from "../data/mbtiDescriptions";
 
 const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   // 로컬 상태로 결과 관리
@@ -147,6 +148,11 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
           return null;
         }
 
+        // import한 mbitDescriptions 사용
+        const description =
+          mbtiDescriptions[result.result] ||
+          "MBTI 유형 설명을 찾을 수 없습니다.";
+
         return (
           <div
             key={result.id}
@@ -156,7 +162,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
           >
             {/* 카드 헤더 */}
             <div className="px-6 py-4 bg-white border-b border-gray-200">
-              <div className="flex flex-col space-y-2">
+              <div className="flex flex-col space-y-3">
                 {/* MBTI 유형 - 큰 글씨로 강조 */}
                 <div className="flex items-center justify-between">
                   <h2 className="text-3xl font-bold text-gray-800">
@@ -164,7 +170,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
                   </h2>
                   {/* 공개/비공개 상태 배지 */}
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-500 ease-in-out ${
                       !result.inVisible
                         ? "bg-green-100 text-green-800"
                         : "bg-gray-100 text-gray-600"
@@ -172,6 +178,13 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
                   >
                     {!result.inVisible ? "🌍 공개" : "🔒 비공개"}
                   </span>
+                </div>
+
+                {/* MBTI 설명 */}
+                <div className="px-4 py-3 rounded-lg bg-gray-50">
+                  <p className="text-sm text-gray-700 leading-relaxedd">
+                    {description}
+                  </p>
                 </div>
 
                 {/* 날짜 정보 */}

@@ -13,7 +13,7 @@ export const createTestResult = async (resultData) => {
     const response = await axios.post(API_URL, {
       ...resultData,
       createdAt: new Date().toISOString(),
-      inVisible: true, // 기본적으로 결과는 보이도록 설정정
+      inVisible: true, // 기본적으로 결과는 보이도록 설정
     });
     return response.data;
   } catch (error) {

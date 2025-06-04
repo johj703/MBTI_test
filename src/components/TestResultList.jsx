@@ -33,22 +33,26 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   // 테스트 결과 공개/비공개 상태 변경 함수
   const handleVisibilityToggle = async (id, currentVisibility) => {
     try {
-      // 낙관적 업데이트: API 호출 전에 UI 먼저 업데이트
+      // ============== 🚀 낙관적 업데이트 시작 ==============
+      // API 호출하기 BEFORE에 UI를 먼저 변경
+      // 사용자가 버튼을 클릭하자마자 즉시 화면이 업데이트됨
       setLocalResults((prevResults) =>
         prevResults.map((result) =>
           result.id === id
-            ? { ...result, inVisible: !result.inVisible }
+            ? { ...result, inVisible: !result.inVisible } // 상태를 반대로 변경
             : result
         )
       );
+      // ============== 🚀 낙관적 업데이트 끝 ==============
 
-      // API 호출
+      // 🌐 실제 API 호출 (서버에 변경사항 저장)
       await updateTestResultVisibility(id, !currentVisibility);
 
-      // 성공시 부모 컴포넌트에도 알림
+      // ✅ 성공 시 부모 컴포넌트에도 알림 (선택사항)
       onUpdate();
     } catch (error) {
-      // 실패시 원래 상태로 되돌리기
+      // ============== 🔄 롤백 시작 ==============
+      // API 호출이 실패했을 때 원래 상태로 되돌리기
       setLocalResults((prevResults) =>
         prevResults.map((result) =>
           result.id === id
@@ -56,6 +60,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
             : result
         )
       );
+      // ============== 🔄 롤백 끝 ==============
 
       console.log("가시성 업데이트 오류: ", error);
       alert("상태 변경 중 오류가 발생했습니다.");

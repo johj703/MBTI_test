@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   deleteTestResult,
   updateTestResultVisibility,
 } from "../api/testResults";
 
 const TestResultList = ({ results, user, onUpdate, onDelete }) => {
+  // 로컬 상태로 결과 관리
+  const [localResults, setLocalResults] = useState(results);
+
+  // props가 변경될 때 로컬 상태 업데이트
+  useEffect(() => {
+    setLocalResults(results);
+  }, [results]);
+
   // 현재 로그인한 사용자의 결과만 필터링
   const userResults = user
-    ? results.filter((result) => result.nickname === user.nickname)
+    ? localResults.filter((result) => result.nickname === user.nickname)
     : [];
 
   // 테스트 결과 삭제 처리 함수
@@ -25,9 +33,30 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
   // 테스트 결과 공개/비공개 상태 변경 함수
   const handleVisibilityToggle = async (id, currentVisibility) => {
     try {
+      // 낙관적 업데이트: API 호출 전에 UI 먼저 업데이트
+      setLocalResults((prevResults) =>
+        prevResults.map((result) =>
+          result.id === id
+            ? { ...result, inVisible: !result.inVisible }
+            : result
+        )
+      );
+
+      // API 호출
       await updateTestResultVisibility(id, !currentVisibility);
-      onUpdate(); // 부모 컴포넌트에 업데이트 알림
+
+      // 성공시 부모 컴포넌트에도 알림
+      onUpdate();
     } catch (error) {
+      // 실패시 원래 상태로 되돌리기
+      setLocalResults((prevResults) =>
+        prevResults.map((result) =>
+          result.id === id
+            ? { ...result, inVisible: !result.inVisible } // 다시 원래대로 복구
+            : result
+        )
+      );
+
       console.log("가시성 업데이트 오류: ", error);
       alert("상태 변경 중 오류가 발생했습니다.");
     }
@@ -43,11 +72,11 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
     const firstLetter = mbtiType.charAt(0);
     switch (firstLetter) {
       case "E":
-        return "bg-yellow-100";
+        return "bg-yellow-100 border-yellow-300";
       case "I":
-        return "bg-blue-100";
+        return "bg-blue-100 border-blue-300";
       default:
-        return "bg-gray-100";
+        return "bg-gray-100 border-gray-300";
     }
   };
 
@@ -126,7 +155,7 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
                   </h2>
                   {/* 공개/비공개 상태 배지 */}
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
                       !result.inVisible
                         ? "bg-green-100 text-green-800"
                         : "bg-gray-100 text-gray-600"

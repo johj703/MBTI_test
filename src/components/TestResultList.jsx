@@ -48,8 +48,12 @@ const TestResultList = ({ results, user, onUpdate, onDelete }) => {
       // 🌐 실제 API 호출 (서버에 변경사항 저장)
       await updateTestResultVisibility(id, !currentVisibility);
 
-      // ✅ 성공 시 부모 컴포넌트에도 알림 (선택사항)
-      onUpdate();
+      // ✅ 성공 시에는 onUpdate 호출하지 않음 (이미 UI가 업데이트 되었기 때문에)
+      // 이 줄을 제거하여 불필요한 재렌더링 방지
+      // onUpdate();
+
+      // 성공 확인용 로그
+      console.log("가시성 업데이트 성공");
     } catch (error) {
       // ============== 🔄 롤백 시작 ==============
       // API 호출이 실패했을 때 원래 상태로 되돌리기
